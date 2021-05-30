@@ -1,0 +1,15 @@
+/////////Loading////
+export const START_LOADING = "START_LOADING";
+export const STOP_LOADING = "STOP_LOADING";
+export const START_BUTTON_LOADING = "START_BUTTON_LOADING";
+export const STOP_BUTTON_LOADING = "STOP_BUTTON_LOADING";
+
+export const SET_ERRORS = "SET_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+
+export const GET_ALL_COURSES = "GET_ALL_COURSES";
+export const GET_SINGLE_COURSE = "GET_SINGLE_COURSE";
+export const DELETE_COURSE = "DELETE_COURSE";
+
+export const GET_ALL_AUTHORS = "GET_ALL_AUTHORS";
+export const DELETE_AUTHOR = "DELETE_AUTHOR";
