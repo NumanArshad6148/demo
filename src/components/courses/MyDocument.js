@@ -21,9 +21,6 @@ const styles = StyleSheet.create({
   },
 });
 
-fnkenfj;
-dv;
-dv;
 // Create Document Component
 const MyDoc = () => (
   <Document>
