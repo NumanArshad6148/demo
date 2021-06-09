@@ -1,110 +1,28 @@
-import React, {
-  FC,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  memo,
-  useState,
-} from "react";
+import { FC, useEffect, useMemo, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
-import {
-  getAllCourses,
-  deleteCourse,
-} from "../../redux/courses/courses.actions";
-import {
-  Modal,
-  Table,
-  Space,
-  Form,
-  Select,
-  Input,
-  SpaceProps,
-  Button,
-} from "antd";
+import { getAllCourses } from "../../redux/courses/courses.actions";
+import { Button } from "antd";
 import { getAllAuthors } from "../../redux/authors/authors.actions";
 import { RootState } from "../../redux/store";
-import { course, courseListType } from "../../models/courses";
-import getColumns from "../../common/customTable";
 import CustomTable from "../../common/customTable";
-import Highlighter from "react-highlight-words";
-import { SearchOutlined } from "@ant-design/icons";
+
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
   Label,
   ReferenceDot,
-  ReferenceLine,
   ComposedChart,
   Area,
-  Bar,
-  Cell,
 } from "recharts";
-import { Chart } from "react-charts";
-import MyDocument from "./MyDocument";
-import PdfButton from "../../common/PdfButton";
-import DrawGraph from "./DrawGraph";
-import SketchGraph from "./SketchGraph";
-// import useChartConfig from "hooks/useChartConfig";
-import { useSvgDrawing } from "react-hooks-svgdrawing";
+
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import AnchorLink from "antd/lib/anchor/AnchorLink";
-import SampleGraph from "./SampleGraph";
 import { IColumnType } from "../../models/columnTypes";
-import MovingAverage from "./MovingAverage";
-
-// const data = [
-//   {
-//     name: "Page A",
-//     uv: 4000,
-//     pv: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page B",
-//     uv: 3000,
-//     pv: 1398,
-//     amt: 2210,
-//   },
-//   {
-//     name: "Page C",
-//     uv: 2000,
-//     pv: 2000,
-//     // amt: 2290,
-//   },
-//   {
-//     name: "Page d",
-//     uv: 2780,
-//     pv: 3908,
-//     // amt: 2000,
-//   },
-//   {
-//     name: "Page E",
-//     uv: 1570,
-//     pv: 1570,
-//     // amt: 2181,
-//   },
-//   {
-//     name: "Page F",
-//     uv: 2390,
-//     pv: 3800,
-//     //amt: 2500,
-//   },
-//   {
-//     name: "Page G",
-//     uv: 3490,
-//     pv: 4300,
-//     // amt: 2100,
-//   },
-// ];
+import ProjectionGraph from "../graph/ProjectionGraph";
 
 const data = [
   {
@@ -413,7 +331,7 @@ const Prints = () => (
   // graph needs to be render but so we just place it outside of the view
   <div style={{ position: "absolute", left: 0, top: -500 }}>
     <div>
-      <MovingAverage />
+      <ProjectionGraph />
     </div>
   </div>
 );
@@ -539,66 +457,3 @@ const CoursesTable: FC = (props: any) => {
   );
 };
 export default CoursesTable;
-
-{
-  /* <LineChart
-width={500}
-height={500}
-data={data}
-margin={{
-  top: 5,
-  right: 30,
-  left: 20,
-  bottom: 5,
-}}
->
-<CartesianGrid strokeDasharray="1 1" />
-<XAxis
-  dataKey="name" //type="number" domain={[0, "dataMax + 1000"]}
->
-  <Label
-    value="Pages of my website"
-    offset={0}
-    position="insideBottom"
-  />
-</XAxis>
-<YAxis
-  label={{ value: "pv/uv of page", angle: -90, position: "insideLeft" }}
-/>
-<Tooltip />
-{/* <Legend /> */
-}
-{
-  /* <ReferenceDot
-  xAxisId="number"
-  cx={2500}
-  cy={3800}
-  alwaysShow={true}
-  r={20}
-  fill="red"
-  stroke="none"
-/> */
-}
-// {renderShareDots}
-{
-  /* <ReferenceDot x={"Page C"} y={2000} stroke="green" label="Min PAGE" /> */
-}
-{
-  /* <ReferenceDot x={2000} y={3908} stroke="green" label="Min PAGE" /> */
-}
-
-{
-  /* <Line
-  type="monotone"
-  dataKey="pv"
-  stroke="#8884d8"
-  activeDot={{
-    onClick: (a, b) => console.log({ a, b }),
-    stroke: "red",
-    strokeWidth: 2,
-    r: 10,
-  }}
-/>
-<Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-</LineChart>  */
-}

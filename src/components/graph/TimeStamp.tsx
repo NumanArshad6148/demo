@@ -29,8 +29,6 @@ const TimeStamp = () => {
     DataValue: 1,
   });
 
-  const [showReferenceDot, setShowReferenceDot] = useState(true);
-
   const convertDateToUnix = (date: any) => dayjs(date).valueOf();
 
   const startDate = dayjs(data[0]["TheDate"]);
@@ -59,8 +57,6 @@ const TimeStamp = () => {
       return unixXAxis;
     });
   }, [data]);
-
-  console.log(dayjs("04-14-20").year());
 
   const formatTooltipValue = (value: string) => {
     return value.length < 8 ? value : value.substring(0, 8);
@@ -187,32 +183,23 @@ const TimeStamp = () => {
     return dayjs(currentDate).valueOf();
   };
 
-  console.log(dayjs("09-01-17").month());
-
   const getTicks = (monthDiff = 1) => {
     const startDate = dayjs(data[0]["TheDate"]);
     const endDate = dayjs(data[data.length - 1]["TheDate"]);
 
     let countMonths = endDate.diff(startDate, "month");
-    let iteratingMonth = [...Array(countMonths / 2)];
+    let iteratingMonth = [...Array(countMonths)];
     let dateTicks: any = [];
     iteratingMonth.forEach((date, index) => {
       let incrementValue = index + monthDiff;
       // if(incrementValue > iteratingMonth.length) return;
       //  let currentDate = startDate.add(incrementValue, 'month').format("MM-DD-YY");
       let add = addMonth(startDate, incrementValue);
-      //  dateTicks.push(add);
 
       let predictionDate = getPredictionTick(add);
-
+      dateTicks.push(add);
       if (predictionDate) {
-        console.log({ current: dateFormatter(add), predictionDate });
-        //  dateTicks.push(add);
         dateTicks.push(convertDateToUnix(predictionDate));
-      } else {
-        let rest = addMonth(startDate, index * 2);
-        console.log({ rest: dateFormatter(rest) });
-        dateTicks.push(rest);
       }
     });
     return [
@@ -221,8 +208,6 @@ const TimeStamp = () => {
       convertDateToUnix(endDate),
     ];
   };
-
-  console.log(getTicks().length);
 
   return (
     <>
@@ -238,25 +223,14 @@ const TimeStamp = () => {
             }}
           >
             <XAxis
-              dataKey="TheDate" //type="number" domain={[0, "dataMax + 1000"]}
+              dataKey="TheDate"
               interval={0}
               type="number"
               ticks={getTicks()}
-              //tickCount={5}
-              //interval={0}
-              //    scale="time"
-              //  tickLine={false}
-              // domain={["0", "auto"]}
-              // domain={["dataMin", "dataMax"]}
               domain={[
                 convertDateToUnix(startDate),
                 convertDateToUnix(endDate),
-                //   dayjs("09-06-01").valueOf(),
-                //  dayjs("09-06-10").valueOf()
               ]}
-              // tickFormatter={dateFormatter}
-              // interval={80}
-
               tick={xAxisTickFormat}
             >
               <Label value="Occupancy Number" position="top" offset={500} />
@@ -272,24 +246,6 @@ const TimeStamp = () => {
               iconType="plainline"
               onClick={handleOpacityEffect}
               payload={[
-                // {
-                //   id: "Danger",
-                //   value: "Danger",
-                //   type: "plainline",
-                //   color: "red",
-                // },
-                // {
-                //   id: "Critical",
-                //   value: "Critical",
-                //   type: "plainline",
-                //   color: "yellow",
-                // },
-                // {
-                //   id: "Concern",
-                //   value: "Concern",
-                //   type: "plainline",
-                //   color: "green",
-                // },
                 {
                   id: "DataValue",
                   value: "DataValue",
@@ -318,13 +274,7 @@ const TimeStamp = () => {
             />
 
             <Tooltip content={<CustomTooltip />} />
-            {/* <ReferenceLine
-              strokeWidth={3}
-              strokeDasharray="3 4 5 2"
-              stroke="blue"
-              y={20}
-              //   y={trigger}
-            /> */}
+
             <Area
               type="monotone"
               dataKey="Danger"

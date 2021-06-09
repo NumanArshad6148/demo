@@ -8,7 +8,6 @@ import store from "./redux/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CoursesTable from "./components/courses/table";
-import MovingAverage from "./components/courses/MovingAverage";
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 ReactDOM.render(

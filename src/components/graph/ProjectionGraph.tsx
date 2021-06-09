@@ -1,32 +1,25 @@
 import { Button } from "antd";
-import dayjs from "dayjs";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
-import moment from "moment";
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
   Label,
-  ReferenceDot,
   ReferenceLine,
   ComposedChart,
   Area,
-  Bar,
   Cell,
   Scatter,
 } from "recharts";
 import { isEmpty } from "../../utils/functions";
 import data from "./projection.json";
-import TriangleShape from "./Triangle";
 
-const MovingAverage = () => {
+const ProjectionGraph = () => {
   const [opacity, setStrockOpacity] = useState({
     Short_Term: 1,
     Medium_Term: 1,
@@ -52,16 +45,6 @@ const MovingAverage = () => {
     setShowReferenceDot(!showReferenceDot);
   };
 
-  const calculate = (value: any) => {
-    if (value < 20) return value;
-    let nmbr: any;
-    let dec: any;
-    [nmbr, dec] = value.split(".");
-    nmbr = nmbr - 20;
-    return `${nmbr}.${dec}`;
-  };
-
-  // console.log(isCorruptedData(user))
   const predictionList = useMemo(() => {
     let updatedData = [];
 
@@ -135,9 +118,6 @@ const MovingAverage = () => {
           }}
         >
           <p className="label">{TheDate} </p>
-          {/* {opacity.DataValue && DataValue ? (
-            <p style={{ color: "black" }}>Data Value : {DataValue}</p>
-          ) : null} */}
           {opacity.Short_Term && Short_Term ? (
             <p style={{ color: "blue" }}>
               Short Term : {formatTooltipValue(Short_Term)}
@@ -198,8 +178,6 @@ const MovingAverage = () => {
     );
   };
 
-  //console.log(window.innerWidth)
-
   const RenderNoShape = (props: any) => {
     return null;
   };
@@ -208,7 +186,6 @@ const MovingAverage = () => {
 
   const print = (event: any) => {
     const input: any = document.getElementById("printThis");
-    // input.style.width = "75%";
     event.preventDefault();
 
     setDownloading(true);
@@ -332,15 +309,6 @@ const MovingAverage = () => {
               activeDot={false}
               baseValue={20}
             />
-            {/* <Line
-              type="monotone"
-              dataKey="DataValue"
-              stroke="black"
-              strokeWidth={1}
-              dot={false}
-              activeDot={!!opacity.DataValue}
-              strokeOpacity={opacity.DataValue}
-            /> */}
             <Line
               type="monotone"
               dataKey="Short_Term"
@@ -411,139 +379,4 @@ const MovingAverage = () => {
   );
 };
 
-export default MovingAverage;
-
-// ///temp //remove
-// ,
-// {
-//   "Days": "",
-//   "TheDate": "08-28-21",
-//   "DataValue": "",
-//   "Short_Term": "",
-//   "Medium_Term": "",
-//   "Long_Term": ""
-// },
-// {
-//   "Days": "",
-//   "TheDate": "08-29-21",
-//   "DataValue": "",
-//   "Short_Term": "",
-//   "Medium_Term": "",
-//   "Long_Term": ""
-// },
-// {
-//   "Days": "",
-//   "TheDate": "08-30-21",
-//   "DataValue": "",
-//   "Short_Term": "",
-//   "Medium_Term": "",
-//   "Long_Term": ""
-// },
-// {
-//   "Days": "",
-//   "TheDate": "08-31-21",
-//   "DataValue": "",
-//   "Short_Term": "",
-//   "Medium_Term": "",
-//   "Long_Term": ""
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-01-21",
-//   "DataValue": "",
-//   "Short_Term": "",
-//   "Medium_Term": "",
-//   "Long_Term": ""
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-02-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-03-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-04-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-05-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-06-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-07-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-08-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-09-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-10-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-11-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-12-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-13-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-14-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-15-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-16-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-17-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-18-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-19-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-20-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-21-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-22-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-23-21"
-// },
-// {
-//   "Days": "",
-//   "TheDate": "09-24-21"
-// }
+export default ProjectionGraph;
