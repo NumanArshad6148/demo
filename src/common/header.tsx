@@ -24,6 +24,9 @@ const HeaderComponent: FC = (): ReactElement => {
             <Link to="/courses">View Courses</Link>
           </Menu.Item>
         </SubMenu>
+        <Menu.Item key="memoize">
+          <Link to="/memoize">Memoize</Link>
+        </Menu.Item>
         <Menu.Item key="autors">
           <Link to="/authors">Authors</Link>
         </Menu.Item>

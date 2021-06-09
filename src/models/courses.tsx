@@ -1,4 +1,9 @@
-import { GET_ALL_COURSES, DELETE_COURSE } from "../redux/actionTypes";
+import { string } from "yup/lib/locale";
+import {
+  GET_ALL_COURSES,
+  DELETE_COURSE,
+  GET_COURSE_AUTHOR,
+} from "../redux/actionTypes";
 
 export type course = {
   id: number;
@@ -21,9 +26,19 @@ export interface deleteCourseAction {
   id: number;
 }
 
-export type actionTypes = getAllCoursesAction | deleteCourseAction;
+export interface getAllCourseAuthorAction {
+  type: typeof GET_COURSE_AUTHOR;
+  listingType: string;
+  payload: any[];
+}
+
+export type actionTypes =
+  | getAllCoursesAction
+  | deleteCourseAction
+  | getAllCourseAuthorAction;
 
 export interface stateTypes {
   all_courses: courseListType | null;
   count: number;
+  all_course_author: any;
 }

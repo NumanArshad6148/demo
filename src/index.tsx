@@ -14,8 +14,9 @@ import MovingAverage from "./components/courses/MovingAverage";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <MovingAverage />
-      {/* <Routes /> */}
+      {/* <CoursesTable /> */}
+      {/* <MovingAverage /> */}
+      <Routes />
       <ToastContainer autoClose={3000} hideProgressBar />
     </Provider>
   </React.StrictMode>,

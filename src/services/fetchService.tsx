@@ -35,20 +35,25 @@ export const httpService = ({
   dispatch((method === "GET" ? startLoading : startButtonLoading)());
   //  // "proxy": "http://localhost:4000"
 
+  const abortController = new AbortController();
   const requestOptions = {
     method,
+    signal: abortController.signal,
     headers: {
       "Content-Type": "application/json",
       ...(isPrivateEndPoint && {
         Authorization: `Bearer ${getUser()?.token}`,
       }),
     },
+
     ...(payload && {
       body: JSON.stringify(payload),
     }),
   };
 
-  return fetch(`${endPoint}`, requestOptions)
+  abortController.abort();
+
+  return fetch(`${process.env.REACT_APP_BASE_URL}${endPoint}`, requestOptions)
     .then(async (response) => {
       const jsonResponse = await response.json();
       // console.log("headers is", response.headers.get("X-Total-Count") as any);

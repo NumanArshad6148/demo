@@ -283,7 +283,8 @@ export const LinearGraph = () => {
             }}
           >
             <XAxis
-              dataKey="name" //type="number" domain={[0, "dataMax + 1000"]}
+              dataKey="name"
+              //type="number" domain={[0, "dataMax + 1000"]}
               // ticks={["05/12", "05/14", "05/17"]}
             >
               <Label value="Time Stamp" offset={0} position="insideBottom" />
@@ -408,16 +409,16 @@ export const LinearGraph = () => {
   );
 };
 
-// const Prints = () => (
-//   // graph needs to be render but so we just place it outside of the view
-//   <div style={{ position: "absolute", left: 0, top: -500 }}>
-//     <div>
-//       <LinearGraph />
-//     </div>
-//   </div>
-// );
+const Prints = () => (
+  // graph needs to be render but so we just place it outside of the view
+  <div style={{ position: "absolute", left: 0, top: -500 }}>
+    <div>
+      <MovingAverage />
+    </div>
+  </div>
+);
 
-const CoursesTable: FC = (): ReactElement => {
+const CoursesTable: FC = (props: any) => {
   const headers = [
     { label: "Date", key: "name" },
     { label: "Ideal", key: "ideal" },
@@ -445,7 +446,7 @@ const CoursesTable: FC = (): ReactElement => {
       // pdf.addPage()
       //@ts-ignore
       //  pdf.addImage(imgData, "JPEG", 15, 40);
-      pdf.addImage(imgData, "JPEG", 15, 40);
+      pdf.addImage(imgData, "JPEG", 0, 10, 290, 120);
       pdf.save("download.pdf");
 
       setDownloading(false);
@@ -460,7 +461,7 @@ const CoursesTable: FC = (): ReactElement => {
   }, [data]);
 
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
   useEffect(() => {
     dispatch(getAllCourses());
     dispatch(getAllAuthors());
@@ -474,8 +475,6 @@ const CoursesTable: FC = (): ReactElement => {
   const getAuthorById = (authorId: number) => {
     return all_authors?.find(({ id }) => id === authorId)?.name;
   };
-
-  console.log({ all_authors });
 
   const columns: IColumnType[] = [
     {
@@ -519,19 +518,23 @@ const CoursesTable: FC = (): ReactElement => {
       </a>
       <br />
       <PdfButton headers={headers} data={formatData} /> */}
-      <MovingAverage />
+
+      {/* {props.children && props.children}
+      <a href="#" onClick={print}>
+        {isDownloading ? `Downloading ...` : `Export Graph`}
+      </a> */}
       {/* <Drawing /> */}
       {/* <SketchGraph data={createFakeData()} /> */}
-      {/* <CustomTable
+      <CustomTable
         data={all_courses}
         columns={columns}
         dataType={"course"}
         getAction={getAllCourses}
-        defaultSorting={{key:"category", order: "ascend"}}
-       serverSorting
-       serverPagination
-       enableCustomLimit
-      /> */}
+        defaultSorting={{ key: "category", order: "ascend" }}
+        serverSorting
+        serverPagination
+        enableCustomLimit
+      />
     </div>
   );
 };

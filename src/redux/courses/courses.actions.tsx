@@ -1,12 +1,37 @@
 import { httpService } from "../../services/fetchService";
-import { GET_ALL_COURSES, DELETE_COURSE } from "../actionTypes";
+import {
+  GET_ALL_COURSES,
+  DELETE_COURSE,
+  GET_COURSE_AUTHOR,
+} from "../actionTypes";
 import { Dispatch } from "redux";
 import { History } from "history";
-import { deleteCourseAction, getAllCoursesAction } from "../../models/courses";
+import {
+  deleteCourseAction,
+  getAllCourseAuthorAction,
+  getAllCoursesAction,
+} from "../../models/courses";
 import { toast } from "react-toastify";
 
 const endPoint = "/api/courses";
 export const getAllCourses =
+  (params?: string) => (dispatch: Dispatch<getAllCourseAuthorAction>) => {
+    httpService({
+      method: "GET",
+      endPoint: `${endPoint}${params ?? ""}`,
+      listing: true,
+    }).then((response) => {
+      dispatch({
+        type: GET_COURSE_AUTHOR,
+        payload: response.jsonResponse,
+        listingType: "courses",
+        // payload: response.jsonResponse,
+        // count: response.count,
+      });
+    });
+  };
+
+export const getCourses =
   (params?: string) => (dispatch: Dispatch<getAllCoursesAction>) => {
     httpService({
       method: "GET",

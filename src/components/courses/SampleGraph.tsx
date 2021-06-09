@@ -435,8 +435,8 @@ const SampleGraph = () => {
               //   tickMargin={5}
               //    type=""
               // unit="%"
-            //  tickCount={5}
-          //    domain={['dataMin', 'dataMax']}
+              //  tickCount={5}
+              //    domain={['dataMin', 'dataMax']}
               type="number"
               // label={{
               //   value: "Values",
@@ -453,7 +453,7 @@ const SampleGraph = () => {
 
               //   interval={5}
               //  ticks={["75%", "80%", "85%"]}
-             tickFormatter={toPercent}
+              tickFormatter={toPercent}
               //  allowDecimals={false}
               //  tickFormatter={(tick) => `${tick}%`}
               // domain={["25%", "50%"]}
@@ -546,19 +546,25 @@ const SampleGraph = () => {
               fontSize={16}
             /> */}
             <Scatter
-              dataKey="trigger"
+              dataKey="actual"
               data={data}
               shape="star"
               stroke="blue"
               fontSize={22}
             >
-              {data.map(({ trigger }, index) => {
-                const nm: number = trigger as number;
+              {data.map(({ actual }, index) => {
+                const nm: number = actual as number;
                 const fillColor =
                   nm > 4000 ? "green" : nm > 2000 ? "orange" : "red";
                 console.log({ fillColor });
 
-                return <Cell key={`cell-${index}`} fill={fillColor} />;
+                return (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={fillColor}
+                    fillOpacity={0}
+                  />
+                );
               })}
             </Scatter>
           </ComposedChart>

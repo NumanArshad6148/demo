@@ -7,6 +7,7 @@ const ProtectedRoutes: React.FC<any> = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
+        console.log({ nice: getUser() });
         return getUser() ? (
           // <Profiler id="text" onRender={() => console.log("rerender")}>
           <Component {...props} />
