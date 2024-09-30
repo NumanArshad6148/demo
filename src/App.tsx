@@ -5,7 +5,7 @@ import Todo from './Todo';
 function App() {
 
   const[count, setCount] = useState<number>(0);
-  const[data, setData] = useState(undefined);
+  const[data_1, setData_1] = useState(undefined);
 
 
   const increment = (): void => {
